@@ -48,9 +48,10 @@ let carGroup, wheels = [];
 let environmentGroup; // Holds the trees, rocks
 let terrainMesh;
 let clock = new THREE.Clock();
+let scrollTargetX = 0;
 
 // Drive settings
-const SCROLL_DISTANCE = 500; // How far the car drives over the full page scroll
+const SCROLL_DISTANCE = 100; // How far the car drives over the full page scroll
 const MOBILE_BREAKPOINT = 768;
 
 // Colors
@@ -405,15 +406,8 @@ function setupScrollAnimation() {
         onUpdate: (self) => {
             const p = self.progress;
 
-            // Move car forward along X axis
-            carGroup.position.x = p * SCROLL_DISTANCE;
-
-            // Spin wheels
-            const wr = -(carGroup.position.x / 3.14) * Math.PI * 2;
-            wheels.forEach(w => { w.rotation.z = wr; });
-
-            // Move sun alongside car (relative)
-            mainDirLight.position.x = carGroup.position.x + 50;
+            // Smooth-follow this target in the render loop to avoid camera jitter on uneven scroll deltas.
+            scrollTargetX = p * SCROLL_DISTANCE;
         }
     });
 
@@ -615,9 +609,15 @@ function initSecretGame() {
 // ─── LOOP ────────────────────────────────────────────────
 function animate() {
     requestAnimationFrame(animate);
-    const time = clock.getElapsedTime();
+    const dt = clock.getDelta();
+    const time = clock.elapsedTime;
 
     if (carGroup && terrainMesh) {
+        if (!isGameMode) {
+            const carFollow = 1.0 - Math.exp(-24 * dt);
+            carGroup.position.x += (scrollTargetX - carGroup.position.x) * carFollow;
+        }
+
         // Globally align car dynamically to road curvature in all modes
         const centerZ = getRoadCenter(carGroup.position.x);
         carGroup.position.z = centerZ + phys.trackOffset;
@@ -803,13 +803,20 @@ function animate() {
             const idealCamY = carGroup.position.y + (compact ? 11 : 18);
             const targetLookAhead = compact ? 5 : 10;
             const targetFov = compact ? 60 : 50;
+            const camFollow = 1.0 - Math.exp(-20 * dt);
+            const fovFollow = 1.0 - Math.exp(-18 * dt);
 
-            camera.position.x += (idealCamX - camera.position.x) * 0.05;
-            camera.position.z += (idealCamZ - camera.position.z) * 0.05;
-            camera.position.y += (idealCamY - camera.position.y) * 0.05;
-            camera.fov += (targetFov - camera.fov) * 0.08;
+            const wr = -(carGroup.position.x / 3.14) * Math.PI * 2;
+            wheels.forEach(w => { w.rotation.z = wr; });
+
+            camera.position.x += (idealCamX - camera.position.x) * camFollow;
+            camera.position.z += (idealCamZ - camera.position.z) * camFollow;
+            camera.position.y += (idealCamY - camera.position.y) * camFollow;
+            camera.fov += (targetFov - camera.fov) * fovFollow;
             camera.updateProjectionMatrix();
             camera.lookAt(carGroup.position.x + targetLookAhead, carGroup.position.y, carGroup.position.z);
+
+            mainDirLight.position.x = carGroup.position.x + 50;
         }
 
         // Keep sun mesh relative so it smoothly tracks the car
