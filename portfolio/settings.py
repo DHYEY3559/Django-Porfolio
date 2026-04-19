@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-only-key-change-me')
 # Default True locally so static assets load with runserver; set DEBUG=False on Render.
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if host.strip()]
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost,dhyey-porfolio.onrender.com').split(',') if host.strip()]
 
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
