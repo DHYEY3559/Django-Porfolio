@@ -1,0 +1,502 @@
+/* =========================================
+   DHYEY PATEL — 3D PORTFOLIO
+   Custom Styles — Indigo/Salmon Palette
+   ========================================= */
+
+/* ---------- Smooth Scroll ---------- */
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(232, 146, 124, 0.4) rgba(45, 48, 90, 0.5);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(45, 48, 90, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #e8927c, #8b5cf6);
+    border-radius: 10px;
+}
+
+/* ---------- Selection ---------- */
+::selection {
+    background: rgba(232, 146, 124, 0.3);
+    color: #fff;
+}
+
+/* ---------- Loading Screen ---------- */
+.loader-ring {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #e8927c;
+    border-right-color: #8b5cf6;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#loader.loaded {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ---------- Content Panel (dark background for readability over 3D) ---------- */
+.content-panel {
+    background: rgba(10, 15, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4), inset 0 0 60px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* ---------- Glassmorphism Components ---------- */
+.glass-nav {
+    background: rgba(10, 10, 26, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+    background: rgba(15, 20, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.glass-card:hover {
+    background: rgba(20, 25, 35, 0.65);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 245, 255, 0.05);
+    transform: translateY(-4px);
+}
+
+.glass-card-stat {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.glass-card-stat:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 245, 255, 0.2);
+}
+
+.glass-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    padding: 8px 20px;
+}
+
+.glass-input {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #fff;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+    border-color: rgba(0, 245, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.glass-input::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #00f5ff, #8b5cf6);
+    color: #0a0a1a;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #8b5cf6, #00f5ff);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 245, 255, 0.3);
+}
+
+.btn-primary:hover::before {
+    opacity: 1;
+}
+
+.btn-primary>* {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 245, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.glass-btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.75rem;
+}
+
+.glass-btn-sm:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 245, 255, 0.3);
+}
+
+/* ---------- Nav Links ---------- */
+.nav-link {
+    padding: 8px 16px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 2px;
+    background: linear-gradient(90deg, #00f5ff, #8b5cf6);
+    border-radius: 2px;
+}
+
+.nav-link-mobile {
+    display: block;
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-link-mobile:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- Timeline ---------- */
+.timeline-container {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #00f5ff, #8b5cf6, #f59e0b, transparent);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-node {
+    position: absolute;
+    left: -40px;
+    top: 24px;
+}
+
+.timeline-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(0, 245, 255, 0.1);
+    border: 2px solid rgba(0, 245, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00f5ff;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    background: rgba(0, 245, 255, 0.2);
+    border-color: #00f5ff;
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* ---------- Skill Bars ---------- */
+.skill-bar {
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00f5ff, #8b5cf6);
+    transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.skill-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 8px;
+    height: 100%;
+    background: #fff;
+    border-radius: 4px;
+    opacity: 0.6;
+    filter: blur(2px);
+}
+
+/* ---------- Stat Card ---------- */
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 245, 255, 0.15);
+}
+
+/* ---------- Project Card 3D Tilt ---------- */
+.project-card {
+    perspective: 1000px;
+}
+
+.project-card .glass-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    opacity: 0;
+    animation: fade-in-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes scroll-dot {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+}
+
+.animate-scroll-dot {
+    animation: scroll-dot 1.5s ease-in-out infinite;
+}
+
+/* GSAP reveal targets */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.reveal-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    #three-canvas {
+        display: none;
+    }
+
+    .reveal-up {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .glass-nav {
+        border-radius: 14px;
+    }
+
+    .timeline-container {
+        padding-left: 32px;
+    }
+
+    .timeline-container::before {
+        left: 15px;
+    }
+
+    .timeline-node {
+        left: -32px;
+    }
+
+    .timeline-dot {
+        width: 32px;
+        height: 32px;
+    }
+
+    .timeline-dot i {
+        width: 16px;
+        height: 16px;
+    }
+    .content-panel {
+        background: rgba(10, 10, 26, 0.25);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 16px;
+        font-size: 0.8125rem;
+        border-radius: 12px;
+    }
+
+    #mobile-menu {
+        max-height: min(55vh, 420px);
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 420px) {
+    .nav-link-mobile {
+        font-size: 0.8125rem;
+    }
+
+    .glass-btn-sm {
+        padding: 6px 10px;
+    }
+}
+
+/* ---------- Canvas Overlay Gradient ---------- */
+#three-canvas+.scroll-progress+nav+main::before {
+    display: none;
+}
+
+/* Ensure text is above canvas */
+main {
+    position: relative;
+    z-index: 10;
+}
+
+section {
+    position: relative;
+}

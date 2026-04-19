@@ -1,0 +1,225 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ==================== HERO SECTION ==================== -->
+<section id="hero" class="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-20 pt-24 sm:pt-20">
+    <div class="content-panel max-w-2xl text-left z-10 w-full lg:w-1/2 p-6 sm:p-8 rounded-2xl">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black leading-tight mb-4 animate-fade-in-up">
+            <span class="block text-white">{{ name }}</span>
+        </h1>
+        <h2 class="text-xl sm:text-3xl font-bold bg-gradient-to-r from-glow-cyan via-glow-violet to-glow-amber bg-clip-text text-transparent mb-6 animate-fade-in-up" style="animation-delay: 0.2s">
+            {{ title }}
+        </h2>
+        <p class="text-sm sm:text-lg text-gray-200 font-medium leading-relaxed mb-8 animate-fade-in-up drop-shadow-md" style="animation-delay: 0.4s">
+            {{ summary }}
+        </p>
+        
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 animate-fade-in-up" style="animation-delay: 0.6s">
+            <button id="start-journey-btn" class="btn-primary group cursor-pointer border-none outline-none">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 group-hover:translate-x-1 transition-transform"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Start Journey</span>
+            </button>
+            <a href="{{ github }}" target="_blank" class="btn-secondary group">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 group-hover:-translate-y-1 transition-transform"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 9 18v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                GitHub
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- spacer so the car can drive before hitting the first block -->
+<div class="h-[40vh]"></div>
+
+<!-- ==================== ABOUT / EDUCATION SECTION ==================== -->
+<section id="about" class="relative min-h-screen flex items-center px-6 lg:px-20 scroll-section">
+    <div class="content-panel max-w-xl w-full text-right ml-auto z-10 p-8 rounded-2xl" data-aos="fade-left">
+        <span class="text-glow-cyan font-mono text-sm tracking-widest uppercase mb-2 block">Checkpoint 1</span>
+        <h2 class="text-5xl font-bold mb-8 text-white">Education</h2>
+        
+        <div class="space-y-6">
+            {% for edu in education %}
+            <div class="glass-card p-6 border-l-4 border-glow-cyan text-left">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-white">{{ edu.institution }}</h3>
+                    <span class="text-xs font-mono text-glow-cyan bg-glow-cyan/10 px-2 py-1 rounded">{{ edu.date }}</span>
+                </div>
+                <p class="text-glow-violet font-medium text-sm mb-1">{{ edu.degree }}</p>
+                <p class="text-gray-300 font-semibold text-sm">{{ edu.score }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- spacer -->
+<div class="h-[50vh]"></div>
+
+<!-- ==================== PROJECTS SECTION ==================== -->
+<section id="projects" class="relative min-h-screen flex flex-col justify-center px-6 lg:px-20 scroll-section">
+    <div class="content-panel max-w-2xl w-full z-10 p-8 rounded-2xl" data-aos="fade-right">
+        <span class="text-glow-violet font-mono text-sm tracking-widest uppercase mb-2 block">Checkpoint 2</span>
+        <h2 class="text-5xl font-bold mb-8 text-white">Projects</h2>
+        
+        <div class="space-y-8">
+            {% for project in projects %}
+            <div class="glass-card p-6 border-l-4 border-glow-{{ project.color }} transition-all hover:-translate-y-1">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-glow-{{ project.color }} transition-colors">
+                        {{ project.title }}
+                    </h3>
+                    <span class="text-xs font-mono text-gray-300 bg-white/10 border border-white/20 px-2 py-1 rounded">{{ project.date }}</span>
+                </div>
+                
+                <p class="text-gray-200 font-medium text-sm leading-relaxed mb-4 drop-shadow-sm">
+                    {{ project.description }}
+                </p>
+                
+                <div class="flex flex-wrap gap-2 mb-4">
+                    {% for tech in project.tech %}
+                    <span class="px-2 py-1 text-xs font-mono rounded bg-glow-{{ project.color }}/10 text-glow-{{ project.color }} border border-glow-{{ project.color }}/20">
+                        {{ tech }}
+                    </span>
+                    {% endfor %}
+                </div>
+                
+                {% if project.github %}
+                <a href="{{ project.github }}" target="_blank" class="inline-flex items-center gap-2 text-sm text-gray-300 font-bold hover:text-white transition-colors drop-shadow-md">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 9 18v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg> Repository
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- spacer -->
+<div class="h-[30vh]"></div>
+
+<!-- ==================== TECH STACK / SKILLS SECTION ==================== -->
+<section id="tech" class="relative min-h-screen flex items-center justify-end px-6 lg:px-20 scroll-section">
+    <div class="content-panel max-w-xl w-full z-10 p-8 rounded-2xl" data-aos="fade-left">
+        <span class="text-glow-amber font-mono text-sm tracking-widest uppercase mb-2 block">Checkpoint 3</span>
+        <h2 class="text-5xl font-bold mb-8 text-white">Skills & Certs</h2>
+        
+        <!-- Certifications -->
+        <div class="mb-10 text-left">
+            <h3 class="text-xl font-bold text-glow-amber mb-4 border-b border-glow-amber/20 pb-2">Certifications</h3>
+            <div class="space-y-4">
+                {% for cert in certifications %}
+                <div class="glass-card p-5 border-l-2 border-glow-amber/50">
+                    <div class="flex justify-between">
+                        <h4 class="font-bold text-white drop-shadow-md">{{ cert.title }}</h4>
+                        <span class="text-xs font-bold text-gray-300 drop-shadow-sm">{{ cert.date }}</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-200 mt-2 drop-shadow-sm">{{ cert.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Skills Chips -->
+        <div class="text-left">
+            <h3 class="text-xl font-bold text-glow-amber mb-4 border-b border-glow-amber/20 pb-2">Technical Skills</h3>
+            <div class="flex flex-wrap gap-2">
+                {% for skill in skills %}
+                <span class="glass-badge text-sm font-medium hover:bg-white/10 transition-colors cursor-default">
+                    {{ skill }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- spacer -->
+<div class="h-[30vh]"></div>
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<section id="contact" class="relative min-h-screen flex flex-col justify-center px-6 lg:px-20 scroll-section pb-20">
+    <div class="content-panel max-w-2xl w-full z-10 p-8 rounded-2xl" data-aos="fade-up">
+        <span class="text-glow-emerald font-mono text-sm tracking-widest uppercase mb-2 block">End of the Line</span>
+        <h2 class="text-5xl font-bold mb-8 text-white">Beyond Code</h2>
+        
+        <!-- Extracurricular -->
+        <div class="glass-card p-6 border-l-4 border-glow-emerald mb-12">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2 mb-2 drop-shadow-md">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-glow-emerald"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                {{ extracurricular.title }}
+            </h3>
+            <p class="text-gray-200 font-medium text-sm drop-shadow-sm">
+                {{ extracurricular.description }}
+            </p>
+        </div>
+
+        <!-- Contact Links -->
+        <h3 class="text-3xl font-bold text-white mb-6">Let's Connect</h3>
+        <div class="glass-card p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <a href="mailto:{{ email }}" class="flex flex-col sm:flex-row items-center gap-3 text-white hover:text-glow-emerald transition-colors">
+                <div class="w-12 h-12 rounded-full bg-glow-emerald/10 flex items-center justify-center">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-glow-emerald"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <span class="text-lg font-medium">{{ email }}</span>
+            </a>
+            
+            <div class="flex items-center gap-4">
+                <a href="https://x.com/Dhyey3449" target="_blank" rel="noopener noreferrer" class="glass-btn-sm !p-3 hover:!bg-white/10 group" aria-label="X Profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:text-glow-cyan transition-colors"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/dhyey-pithadia/" target="_blank" rel="noopener noreferrer" class="glass-btn-sm !p-3 hover:!bg-white/10 group" aria-label="LinkedIn Profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:text-glow-cyan transition-colors"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="https://www.instagram.com/dhyey_pithadia/" target="_blank" rel="noopener noreferrer" class="glass-btn-sm !p-3 hover:!bg-white/10 group" aria-label="Instagram Profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:text-glow-cyan transition-colors"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="{{ github }}" target="_blank" rel="noopener noreferrer" class="glass-btn-sm !p-3 hover:!bg-white/10 group" aria-label="GitHub Profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:text-glow-cyan transition-colors"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 9 18v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hidden Secret Game UI -->
+<div id="game-ui" class="fixed inset-0 z-[10000] pointer-events-none flex items-center justify-center hidden">
+    <!-- Rules Popup -->
+    <div id="game-rules" class="content-panel p-8 text-center bg-deep-900/90 max-w-lg hidden">
+        <h2 class="text-4xl font-extrabold text-glow-cyan mb-4 drop-shadow-lg">RACE INITIATED</h2>
+        <p class="text-lg text-gray-200 mb-6 font-mono drop-shadow-md">You found the secret dev-track.</p>
+        
+        <div class="grid grid-cols-2 gap-4 text-left font-mono text-sm text-gray-300 mb-6 drop-shadow-sm">
+            <div class="glass-card p-3 border-l-2 border-glow-amber text-center">
+                <span class="block text-xl font-bold text-white mb-1">W</span> Accelerate
+            </div>
+            <div class="glass-card p-3 border-l-2 border-glow-amber text-center">
+                <span class="block text-xl font-bold text-white mb-1">S</span> Brake
+            </div>
+            <div class="glass-card col-span-2 p-3 border-l-2 border-glow-amber text-center flex justify-center gap-4">
+                <div><span class="text-xl font-bold text-white">A</span> Left</div>
+                <div><span class="text-xl font-bold text-white">D</span> Right</div>
+            </div>
+        </div>
+        
+        <div id="countdown" class="text-6xl font-black text-glow-amber drop-shadow-lg animate-pulse">5</div>
+    </div>
+    
+    <!-- In-Game HUD -->
+    <div id="game-hud" class="absolute top-8 left-8 hidden">
+        <div class="font-mono text-xl text-glow-cyan font-bold drop-shadow-lg tracking-widest bg-deep-900/50 p-2 rounded">
+            SPEED <span id="speedo">0</span> KPH
+        </div>
+        <div class="font-mono text-gray-300 mt-2 font-bold drop-shadow-md bg-deep-900/50 p-2 rounded">
+            OPPONENT DISTANCE: <span id="opp-dist">0</span>m
+        </div>
+    </div>
+    
+    <!-- Game Over -->
+    <div id="game-over" class="content-panel p-8 text-center bg-deep-900/90 hidden">
+        <h2 id="end-title" class="text-5xl font-black text-glow-amber mb-4 drop-shadow-lg">YOU WON!</h2>
+        <button onclick="location.reload()" class="btn-primary mt-4 pointer-events-auto">Return to Portfolio</button>
+    </div>
+</div>
+
+{% endblock %}
